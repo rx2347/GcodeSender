@@ -8,6 +8,5 @@ Download repository and open GcodeSender.pde in Processing.
 
 # Shortcuts
 
-Press Return to send GCode.
-
-Use Arrow Up and Arrow down to move through previous commands.
+- Press Return to send GCode.
+- Use Arrow Up and Arrow down to move through previous commands.
