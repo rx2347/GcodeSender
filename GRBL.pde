@@ -40,7 +40,7 @@ void senderInit(String initCommand) {
 // SEND GCODE
 void sendGcode(String gcode) {
   if (grblInit) {
-    println("Sending gcode");
+    println("Sending gcode", gcode);
     myPort.clear();
     delay(1000);
     myPort.write(gcode);

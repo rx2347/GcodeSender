@@ -6,8 +6,8 @@ String feedback;
 
 void setup() {
   size (600, 800);
+  background(60);
   frameRate(30);
-  fill(255);
   myPort = new Serial(this, Serial.list()[3], 115200);
 
   setupControls();

@@ -8,8 +8,8 @@ int sentID = 0;
 String command = "";
 
 void setupControls() {
-  PFont font = createFont("arial", 20);
-  textFont(font);
+  // PFont font = createFont("arial", 20);
+  // textFont(font);
 
   cp5 = new ControlP5(this);
   cp5.mapKeyFor(new ControlKey() {
@@ -42,6 +42,7 @@ void setupControls() {
   cp5.addBang("clear")
     .setPosition(width-200+20, height-60)
     .setSize(80, 40)
+    .setFont(createFont("arial", 12))
     .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
     ;    
 
@@ -49,6 +50,7 @@ void setupControls() {
   cp5.addBang("submit")
     .setPosition(width-200+80+20, height-60)
     .setSize(80, 40)
+    .setFont(createFont("arial", 12))
     .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
     ;
 }
@@ -75,6 +77,7 @@ void updateStatus(String statusText) {
   String currentText = status.getText();
   currentText+=statusText;
   status.setText(currentText);
+  status.scroll(100);
 }
 
 // KEYBINDINGS
