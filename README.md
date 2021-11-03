@@ -1,4 +1,4 @@
-# SendGCode
+# GCode Sender for GRBL based on Processing
 
 Simple GCode Terminal for Processing to communicate with GRBL.
 
