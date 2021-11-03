@@ -2,7 +2,7 @@
 
 Simple GCode Terminal for Processing to communicate with GRBL.
 
-# Usage
+# Installation
 
 Download repository and open GcodeSender.pde in Processing.
 
