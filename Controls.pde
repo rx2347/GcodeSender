@@ -3,21 +3,13 @@ import controlP5.*;
 ControlP5 cp5;
 Textarea status;
 Textfield input;
+DropdownList ports;
 String[] sent = {"$$"};
 int sentID = 0;
 String command = "";
 
 void setupControls() {
-  // PFont font = createFont("arial", 20);
-  // textFont(font);
-
   cp5 = new ControlP5(this);
-  cp5.mapKeyFor(new ControlKey() {
-    public void keyEvent() { 
-      submit();
-    }
-  }
-  , ENTER);
 
   // INPUT                                    
   input = cp5.addTextfield("input")
@@ -28,15 +20,23 @@ void setupControls() {
     ;
 
   // TEXTAREA
-  status = cp5.addTextarea("txt")
-    .setPosition(20, 60)
-    .setSize(width-40, height-120)
+  status = cp5.addTextarea("status")
+    .setPosition(20, 40)
+    .setSize(width-40, height-100)
     .setFont(createFont("arial", 16))
     .setLineHeight(18)
     .setColor(color(64))
-    .setColorBackground(color(255, 100))
-    .setColorForeground(color(255, 100));
+    .setColorBackground(color(255))
+    .setColorForeground(color(255));
   ;
+  
+  // BIND ENTER
+  cp5.mapKeyFor(new ControlKey() {
+    public void keyEvent() { 
+      submit();
+    }
+  }
+  , ENTER);
 
   // RESET BUTTON     
   cp5.addBang("clear")
@@ -53,7 +53,32 @@ void setupControls() {
     .setFont(createFont("arial", 12))
     .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
     ;
+
+  // DROPDOWN
+  ports = cp5.addDropdownList("ports")
+    .setPosition(20, 20)
+    .setSize(width-40, 200)
+    .setBackgroundColor(color(190))
+    .setFont(createFont("arial", 12))
+    .setItemHeight(20)
+    .setBarHeight(20)
+    .setValueLabel("")
+    .setLabel("Select Port");
+
+  for (int i=0; i<Serial.list().length; i++) {
+    ports.addItem(Serial.list()[i], i);
+  };
+
+  ports.close();
+  
 }
+
+//void mousePressed() {
+//  if (!ports.isMouseOver()) {    
+//    ports.close();
+//  }
+//}
+
 
 // CLEAR INPUT
 public void clear() {
@@ -92,6 +117,25 @@ void keyPressed() {
       sentID++;
       if (sentID >= sent.length) sentID = sent.length -1;
       command = sent[sentID];
+    }
+  }
+}
+
+void controlEvent(ControlEvent theEvent) {
+  // DropdownList is of type ControlGroup.
+  // A controlEvent will be triggered from inside the ControlGroup class.
+  // therefore you need to check the originator of the Event with
+  // if (theEvent.isGroup())
+  // to avoid an error message thrown by controlP5.
+
+  if (theEvent.isGroup()) {
+    // check if the Event was triggered from a ControlGroup
+    println("event from group : "+theEvent.getGroup().getValue()+" from "+theEvent.getGroup());
+  } 
+  else if (theEvent.isController()) {
+    if(theEvent.getController().getName() == "ports") {
+      myPort = new Serial(this, Serial.list()[int(theEvent.getController().getValue())], 115200);
+      if (!grblInit) senderInit("$$");  
     }
   }
 }
