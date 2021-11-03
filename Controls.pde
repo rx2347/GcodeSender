@@ -62,7 +62,6 @@ public void clear() {
 void submit() {
   String text = cp5.get(Textfield.class, "input").getText();
   if (text != "") {
-    println("Sending", text);
     sent = append(sent, text);
     sentID = sent.length;
     sendGcode(text);
