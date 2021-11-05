@@ -9,7 +9,6 @@ void setup() {
   background(30);
 
   setupControls();
-  //if (!grblInit) senderInit("$$");
 }
 
 void draw() {
